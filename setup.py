@@ -1,6 +1,9 @@
+import os
 from setuptools import setup, find_packages
 
-version = '1.1.3-pyntra'
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, 'archetypes', 'querywidget', 'version.txt')) as version_file:
+    version = version_file.read().strip()
 
 tests_require = ['plone.app.testing']
 
