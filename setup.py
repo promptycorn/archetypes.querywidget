@@ -30,7 +30,6 @@ setup(
     url='http://pypi.python.org/pypi/archetypes.querywidget',
     license='GPL version 2',
     packages=find_packages(exclude=['ez_setup']),
-    namespace_packages=['archetypes'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[

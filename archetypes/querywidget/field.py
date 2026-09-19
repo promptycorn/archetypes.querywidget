@@ -5,14 +5,14 @@ from Products.Archetypes.Field import ObjectField
 from Products.Archetypes.Field import registerField
 from Products.CMFPlone.utils import safe_unicode
 from zope.component import getMultiAdapter
-from zope.interface import implements
-from zope.site.hooks import getSite
+from zope.interface import implementer
+from zope.component.hooks import getSite
 
 
+@implementer(IQueryField)
 class QueryField(ObjectField):
     """QueryField for storing query"""
 
-    implements(IQueryField)
     _properties = ObjectField._properties.copy()
 
     security = ClassSecurityInfo()

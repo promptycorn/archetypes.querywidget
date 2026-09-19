@@ -83,7 +83,7 @@ class MultiSelectWidget(WidgetTraverse):
 
     def getSortedValuesKeys(self, values):
         # do a lowercase sort of the keys
-        return sorted(values.iterkeys(), key=sortable_value)
+        return sorted(values.keys(), key=sortable_value)
 
 
 class SelectWidget(MultiSelectWidget):
@@ -99,4 +99,4 @@ class SelectWidget(MultiSelectWidget):
 
     def getSortedValuesKeys(self, values):
         # do a lowercase sort of the keys
-        return sorted(values.iterkeys(), key=sortable_value)
+        return sorted(values.keys(), key=sortable_value)
