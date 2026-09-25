@@ -1,11 +1,13 @@
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from plone.app.querystring.interfaces import IQuerystringRegistryReader
-from zope.publisher.browser import BrowserView
+from Products.Five.browser import BrowserView
+from AccessControl import ClassSecurityInfo
+from AccessControl.class_init import InitializeClass
 
 
 def sortable_value(value):
-    if isinstance(value, basestring):
+    if isinstance(value, str):
         value = value.lower()
     return value
 
@@ -43,6 +45,10 @@ jQuery.tools.dateinput.conf.format = "mm/dd/yyyy";
 
 class WidgetTraverse(BrowserView):
 
+    security = ClassSecurityInfo()
+    security.declarePublic('macros')
+    security.declareProtected('View', 'getConfig')
+
     def getConfig(self):
         """get the config"""
         registry = getUtility(IRegistry)
@@ -70,7 +76,13 @@ class WidgetTraverse(BrowserView):
         return self.index.macros
 
 
+InitializeClass(WidgetTraverse)
+
+
 class MultiSelectWidget(WidgetTraverse):
+
+    security = ClassSecurityInfo()
+    security.declareProtected('View', 'getValues', 'getSortedValuesKeys')
 
     def getValues(self, index=None):
         config = self.getConfig()
@@ -100,3 +112,7 @@ class SelectWidget(MultiSelectWidget):
     def getSortedValuesKeys(self, values):
         # do a lowercase sort of the keys
         return sorted(values.keys(), key=sortable_value)
+
+
+InitializeClass(MultiSelectWidget)
+InitializeClass(SelectWidget)
